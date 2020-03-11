@@ -28,6 +28,6 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       ## for local use
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-      ## for cloude use
+      ## for cloud use
       # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://<cloud_host_ip>:9092
       # advertised.host.name: <cloud_host_ip>
