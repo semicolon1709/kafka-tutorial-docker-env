@@ -1,8 +1,21 @@
 ---
 version: '2'
 services:
+  kowl:
+    image: 'docker.redpanda.com/redpandadata/console:latest'
+    entrypoint: /bin/sh
+    container_name: kowl
+    command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["localhost:9092"]
+        server:
+          listenPort: 9000
+    network_mode: host
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.2.1
+    image: confluentinc/cp-zookeeper:7.5.3
     hostname: zookeeper
     container_name: zookeeper
     ports:
@@ -10,9 +23,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-
   kafka:
-    image: confluentinc/cp-kafka:5.2.1
+    image: confluentinc/cp-kafka:7.5.3
     hostname: kafka
     container_name: kafka
     ports:
@@ -29,5 +41,5 @@ services:
       ## for local use
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       ## for public use
-      #KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://<host_ip>:9092
-      #advertised.host.name: <host_ip>
+      #KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://192.168.1.66:9092
+      #advertised.host.name: 192.168.1.66
