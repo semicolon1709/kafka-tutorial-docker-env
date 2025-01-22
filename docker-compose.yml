@@ -43,7 +43,7 @@ services:
         server:
           listenPort: 9000
     ports:
-      - "9000:9000"
+      - "19900:9000"
     depends_on:
       - "kafka"
     networks:
